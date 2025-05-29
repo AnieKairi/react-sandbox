@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { Button } from "@radix-ui/themes";
+import "./index.css"; // or './styles/tailwind.css'
+import { useState } from "react";
+import "./App.css";
+import DialogDemo from "./dialog-demo/dialog-demo";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [showDialog, setShowDialog] = useState(false);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+        <Button
+        size="4"
+        className="mt-3 primary-button"
+        style={{ backgroundColor: "#6abf16", width: 150 }}
+        onClick={() => setShowDialog(true)}
+      >
+        <FontAwesomeIcon icon={faPlus} />
+        Create
+      </Button>
+      {showDialog && (
+        <DialogDemo
+          title={`Mark Delivery Complete`}
+          description={`Are you sure you want to mark this delivery as completed?`}
+          confirmText="Yes"
+          onConfirm={() => {
+            console.log("onConfirm fired!");
+          }}
+          onCancel={() => {
+            console.log("onCancel fired!");
+          }}
+        ></DialogDemo>
+      )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
